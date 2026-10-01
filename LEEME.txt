@@ -1,0 +1,77 @@
+AUTOMASTER - PROTOTIPO FUNCIONAL ALINEADO AL ERS
+=================================================
+
+Abrir:
+  index.html
+
+ARCHIVOS
+--------
+index.html
+style.css
+app.js
+img/fondo-automaster.png
+DOCUMENTACION_ERS.md
+
+ACCESO DE FUNCIONARIOS (DEMO)
+-----------------------------
+Contraseña para las cuentas demostrativas:
+  AutoMaster2026!
+
+Ejemplos de roles:
+  admin@automaster.cl      -> Administrador (todos los módulos)
+  vendedor@automaster.cl  -> Vendedor
+  finanzas@automaster.cl  -> Ejecutivo de Financiamiento
+  repuestos@automaster.cl -> Encargado de Repuestos
+  postventa@automaster.cl -> Postventa / Taller
+  inventario@automaster.cl -> Inventario
+
+El prototipo aplica RBAC y oculta módulos según el rol.
+
+FUNCIONES IMPLEMENTADAS
+-----------------------
+- Clientes: alta, edición, cotizaciones, historial e interacciones.
+- Vendedores: cartera, oportunidades, metas y comisiones.
+- Stock: registro por VIN/código, estados, ubicación, color, año y reservas.
+- Repuestos: catálogo, compatibilidad, stock mínimo, pedidos y ajustes.
+- Financiamiento: pie 10%, cuotas, tasa, VFG, seguros y evaluación de riesgo demostrativa.
+- Test Drive: agenda, licencia vigente, vehículos demo, reasignación/reprogramación.
+- Documentos: contratos/órdenes/cartas, expediente, archivos y flujo de firma.
+- Garantías: pólizas, cobertura por fecha/kilometraje, reclamos y extensiones.
+- Modelos: catálogo, versiones, equipamiento, imágenes y precios.
+- Postventa: OT, recepción, repuestos, horas de mano de obra, estados y mantenciones.
+- Dashboard y KPIs calculados automáticamente desde los registros.
+- Catálogo público sincronizado con Modelos/Stock.
+- Exportación CSV por módulo.
+- Respaldo/restauración JSON para el administrador.
+- Centro de notificaciones interno.
+- Persistencia local con localStorage para demostración.
+
+IMPORTANTE - ALCANCE DEL PROTOTIPO
+---------------------------------
+Este paquete es una demostración Front-End funcional. Los datos se guardan en localStorage del navegador.
+No reemplaza un backend de producción.
+
+Para una implementación real todavía se debe desplegar:
+- Backend cliente-servidor.
+- PostgreSQL o SQL Server.
+- Autenticación del lado servidor y almacenamiento seguro de contraseñas.
+- Cifrado AES-256 de documentos sensibles.
+- HTTPS/TLS 1.3 en el servidor.
+- Integraciones REST reales con financieras/fábrica.
+- Envío real de correo/SMS.
+- Firma digital legal.
+- Almacenamiento de archivos en servidor.
+- Respaldos automatizados de infraestructura.
+- Pruebas de carga para 150 usuarios y objetivo de disponibilidad 99,5%.
+- Integración física con lectores QR/código de barras, impresoras y escáneres.
+
+Para reiniciar los datos de ejemplo, ingresar como administrador y usar “Restablecer demo”.
+
+ACTUALIZACION DE FINANCIAMIENTO Y CATALOGO
+- Tasa mensual pública fija: 2,79%.
+- Valor Futuro Garantizado (VFG) fijo: 20%.
+- Seguro de desgravamen opcional: 2,0% del monto financiado.
+- Seguro de cesantía opcional: 2,0% del monto financiado.
+- Cada vehículo y motocicleta incluye especificaciones técnicas ampliadas.
+- Cada modelo del catálogo incluye un botón "Descargar ficha PDF".
+- Las fichas PDF se encuentran en la carpeta /fichas.
