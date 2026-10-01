@@ -3,86 +3,512 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoPremium - Tu Concesionario de Confianza</title>
+    <title>AutoMaster | Concesionaria y Gestión Automotriz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div class="logo">🚗 AutoPremium</div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="servicios.html">Servicios</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-            </ul>
-        </nav>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#inicio" class="logo" aria-label="AutoMaster inicio">
+                <span class="logo-mark">A</span>
+                <span>AutoMaster</span>
+            </a>
+
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">☰</button>
+
+            <nav aria-label="Navegación principal" class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li id="nav-gestion" class="oculto"><a href="#gestion">Gestión interna</a></li>
+                    <li><button type="button" class="nav-login-btn" id="btn-login-funcionario">Acceso funcionarios</button></li>
+                    <li id="nav-usuario" class="nav-user oculto"><span id="usuario-funcionario"></span><button type="button" id="btn-logout-funcionario">Cerrar sesión</button></li>
+                    <li><a href="#financiamiento" class="js-abrir-financiamiento">Financiamiento</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <!-- Uso de etiqueta semántica main obligatoria (IE1.1.1) -->
+
     <main>
         <section id="inicio" class="hero">
-            <article class="hero-content">
-                <h1>Encuentra el auto de tus sueños</h1>
-                <p>Vehículos nuevos y seminuevos con la mejor financiación y garantía del mercado.</p>
-                <a href="#contacto" class="btn-primary">Cotizar ahora</a>
-            </article>
-        </section>
+            <div class="hero-overlay"></div>
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <span class="eyebrow">Concesionaria y gestión automotriz</span>
+                    <h1>Compra, financia y administra tu experiencia automotriz en un solo lugar</h1>
+                    <p>
+                        AutoMaster reúne catálogo de vehículos, simulación de crédito, test drive, postventa y herramientas de gestión para clientes, vendedores e inventario.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
+                        <button type="button" class="btn btn-secondary" id="hero-login-funcionario">Acceso funcionarios</button>
+                        <a href="#financiamiento" class="btn btn-ghost js-abrir-financiamiento">Simular financiamiento</a>
+                    </div>
 
-        <section id="servicios" class="servicios">
-            <h2>¿Por qué elegirnos?</h2>
-            <div class="cards-container">
-                <article class="card">
-                    <h3>💰 Financiación a medida</h3>
-                    <img src="https://wimahomes.com/wp-content/uploads/2025/11/two-confident-business-man-shaking-hands-during-a-2025-10-30-20-59-30-utc-scaled.jpg" alt="Interior de auto" width="100%" style="border-radius: 5px; margin-bottom: 10px;">
-                    <p>Ofrecemos planes de crédito que se ajustan a tu bolsillo con tasas competitivas.</p>
-                </article>
-                <article class="card">
-                    <h3>🛡️ Garantía Extendida</h3>
-                    <img src="https://electrodrive.com.uy/cdn/shop/files/garantia-extendida-8810626.png?v=1757089991&width=700" alt="Interior de auto" width="100%" style="border-radius: 5px; margin-bottom: 10px;">
-                    <p>Todos nuestros vehículos pasan por una revisión rigurosa antes de ser entregados.</p>
-                </article>
-                <!-- Imagen y video exigidos por la rúbrica (IE1.1.1) -->
-                <article class="card">
-                    <h3>🚘 Modelos 2026</h3>
-                    <img src="https://bringatrailer.com/wp-content/uploads/2026/05/36A9017-94832-scaled.jpg" alt="Interior de auto" width="100%" style="border-radius: 5px; margin-bottom: 10px;">
-                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/i1Y5e7tlARg" title="Video de muestra" frameborder="0" allowfullscreen></iframe>
-                </article>
+                    <div class="hero-highlights">
+                        <div class="mini-card">
+                            <strong>10%</strong>
+                            <span>Pie mínimo referencial</span>
+                        </div>
+                        <div class="mini-card">
+                            <strong>10 módulos</strong>
+                            <span>Gestión integral</span>
+                        </div>
+                        <div class="mini-card">
+                            <strong>6 a 72</strong>
+                            <span>Cuotas disponibles</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-panel">
+                    <div class="hero-panel-card">
+                        <span class="status-pill">Simulación rápida</span>
+                        <h2>Ejemplo vehículo $15.000.000</h2>
+                        <div class="quick-summary">
+                            <div><span>Pie 10%</span><strong>$1.500.000</strong></div>
+                            <div><span>Monto a financiar</span><strong>$13.500.000</strong></div>
+                            <div><span>Plazo sugerido</span><strong>48 cuotas</strong></div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-full js-ejemplo" data-valor="15000000" data-cuotas="48">Usar este ejemplo</button>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="contacto" class="contacto">
-            <div class="contacto-container">
-                <h2>¿Te interesa un vehículo? Déjanos tus datos</h2>
-                <p>Regístrate y un asesor se comunicará contigo en breve.</p>
-                
-                <!-- Formulario con validaciones (IE1.2.1) -->
-                <form id="formulario-cliente" novalidate>
-                    <div class="form-group">
-                        <label for="nombre">Nombre Completo:</label>
-                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez" autocomplete="name">
-                        <span class="error-msg oculto" id="error-nombre"></span>
+        <section class="section section-alt" aria-labelledby="resumen-title">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">Resumen</span>
+                    <h2 id="resumen-title">Una plataforma pensada para todo el ciclo automotriz</h2>
+                    <p>Desde la primera cotización hasta la postventa, cada módulo tiene una función clara y accesible.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card"><span>Vehículos disponibles</span><strong id="stat-disponibles">0</strong><small>Stock actualizado</small></article>
+                    <article class="stat-card"><span>Cotizaciones activas</span><strong id="stat-cotizaciones">0</strong><small>Seguimiento comercial</small></article>
+                    <article class="stat-card"><span>Test drive agendados</span><strong id="stat-testdrive">0</strong><small>Agenda vigente</small></article>
+                    <article class="stat-card"><span>Órdenes de trabajo</span><strong id="stat-ot">0</strong><small>En servicio técnico</small></article>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalogo" class="section">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">Catálogo</span>
+                    <h2>Vehículos y motos disponibles</h2>
+                    <p>Explora nuestro catálogo, filtra por categoría y envía cualquier modelo directamente al simulador de financiamiento.</p>
+                </div>
+
+                <div class="catalog-toolbar" aria-label="Filtros del catálogo">
+                    <div class="catalog-filters" role="group" aria-label="Filtrar por categoría">
+                        <button type="button" class="catalog-filter active" data-filter="todos">Todos</button>
+                        <button type="button" class="catalog-filter" data-filter="auto">Autos</button>
+                        <button type="button" class="catalog-filter" data-filter="suv">SUV y camionetas</button>
+                        <button type="button" class="catalog-filter" data-filter="moto">Motos</button>
+                    </div>
+                    <label class="catalog-search">
+                        <span>Buscar modelo</span>
+                        <input type="search" id="catalog-search" placeholder="Ej. SUV, Sport, moto..." autocomplete="off">
+                    </label>
+                </div>
+
+                <p id="catalog-empty" class="catalog-empty oculto">No encontramos modelos con ese filtro.</p>
+
+                <div class="catalog-grid" id="catalog-grid">
+                    <article class="vehicle-card" data-category="suv" data-name="AutoMaster SUV X500">
+                        <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=900&q=80" alt="SUV AutoMaster X500 gris">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag">SUV</span><span>Stock: 5</span></div>
+                            <h3>AutoMaster SUV X500</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 2.0 Turbo</li>
+                                <li><strong>Transmisión:</strong> Automática</li>
+                                <li><strong>Precio:</strong> $18.990.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="18990000">Simular este vehículo</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="vehicle-card" data-category="auto" data-name="AutoMaster Sedan Exec">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80" alt="Sedán AutoMaster Exec">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag">Sedán</span><span>Stock: 8</span></div>
+                            <h3>AutoMaster Sedan Exec</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 1.6 Híbrido</li>
+                                <li><strong>Eficiencia:</strong> 22 km/L</li>
+                                <li><strong>Precio:</strong> $14.490.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="14490000">Simular este vehículo</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="vehicle-card" data-category="auto" data-name="AutoMaster City C200">
+                        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=900&q=80" alt="Hatchback AutoMaster City C200">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag">Hatchback</span><span>Stock: 11</span></div>
+                            <h3>AutoMaster City C200</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 1.4 Bencina</li>
+                                <li><strong>Transmisión:</strong> Mecánica</li>
+                                <li><strong>Precio:</strong> $10.990.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="10990000">Simular este vehículo</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="vehicle-card" data-category="suv" data-name="AutoMaster PickUp T900">
+                        <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=900&q=80" alt="Camioneta AutoMaster PickUp T900">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag">Camioneta</span><span>Stock: 4</span></div>
+                            <h3>AutoMaster PickUp T900</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 2.4 Turbo Diésel</li>
+                                <li><strong>Tracción:</strong> 4x4</li>
+                                <li><strong>Precio:</strong> $24.990.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="24990000">Simular este vehículo</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="vehicle-card" data-category="suv" data-name="AutoMaster Cross H700">
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=900&q=80" alt="Crossover AutoMaster Cross H700">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag">Crossover</span><span>Stock: 6</span></div>
+                            <h3>AutoMaster Cross H700</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 1.5 Turbo</li>
+                                <li><strong>Transmisión:</strong> Automática CVT</li>
+                                <li><strong>Precio:</strong> $16.790.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="16790000">Simular este vehículo</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="vehicle-card" data-category="auto" data-name="AutoMaster Sport R8">
+                        <img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=900&q=80" alt="Coupé deportivo AutoMaster Sport R8">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag">Coupé</span><span>Stock: 2</span></div>
+                            <h3>AutoMaster Sport R8</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 2.0 Turbo</li>
+                                <li><strong>Transmisión:</strong> Automática deportiva</li>
+                                <li><strong>Precio:</strong> $29.990.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="29990000">Simular este vehículo</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="vehicle-card" data-category="moto" data-name="AutoMaster Moto Street 250">
+                        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80" alt="Moto urbana AutoMaster Street 250">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag moto-tag">Moto urbana</span><span>Stock: 9</span></div>
+                            <h3>AutoMaster Moto Street 250</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 250 cc</li>
+                                <li><strong>Tipo:</strong> Urbana / Naked</li>
+                                <li><strong>Precio:</strong> $3.490.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="3490000">Simular esta moto</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="vehicle-card" data-category="moto" data-name="AutoMaster Moto Adventure 500">
+                        <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=900&q=80" alt="Moto adventure AutoMaster 500">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag moto-tag">Adventure</span><span>Stock: 5</span></div>
+                            <h3>AutoMaster Moto Adventure 500</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 500 cc</li>
+                                <li><strong>Tipo:</strong> Adventure / Touring</li>
+                                <li><strong>Precio:</strong> $5.990.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="5990000">Simular esta moto</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="vehicle-card" data-category="moto" data-name="AutoMaster Moto Sport 600">
+                        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=80" alt="Moto deportiva AutoMaster Sport 600">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag moto-tag">Deportiva</span><span>Stock: 3</span></div>
+                            <h3>AutoMaster Moto Sport 600</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 600 cc</li>
+                                <li><strong>Tipo:</strong> Deportiva</li>
+                                <li><strong>Precio:</strong> $7.890.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="7890000">Simular esta moto</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="vehicle-card" data-category="moto" data-name="AutoMaster Moto Cruiser 800">
+                        <img src="https://images.unsplash.com/photo-1525160354320-d8e92641c563?auto=format&fit=crop&w=900&q=80" alt="Moto cruiser AutoMaster 800">
+                        <div class="vehicle-content">
+                            <div class="vehicle-topline"><span class="vehicle-tag moto-tag">Cruiser</span><span>Stock: 2</span></div>
+                            <h3>AutoMaster Moto Cruiser 800</h3>
+                            <ul>
+                                <li><strong>Motor:</strong> 800 cc</li>
+                                <li><strong>Tipo:</strong> Cruiser</li>
+                                <li><strong>Precio:</strong> $9.490.000</li>
+                            </ul>
+                            <div class="vehicle-actions">
+                                <button type="button" class="btn btn-primary js-simular-modelo" data-valor="9490000">Simular esta moto</button>
+                                <a href="#contacto" class="btn btn-secondary">Solicitar cotización</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="gestion" class="section management-section employee-only oculto" aria-hidden="true">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">Centro de gestión</span>
+                    <h2>Todos los módulos de AutoMaster</h2>
+                    <p>Selecciona un módulo para ver sus funciones, indicadores y acciones principales.</p>
+                </div>
+
+                <div class="management-toolbar">
+                    <div class="session-summary">
+                        <span>Rol activo</span>
+                        <strong id="role-label">Sin sesión</strong>
+                    </div>
+                    <div class="management-actions">
+                        <button type="button" class="btn btn-secondary btn-compact" id="btn-notificaciones">Notificaciones <span id="notification-count">0</span></button>
+                        <button type="button" class="btn btn-secondary btn-compact admin-only" id="btn-exportar-respaldo">Exportar respaldo</button>
+                        <button type="button" class="btn btn-secondary btn-compact admin-only" id="btn-importar-respaldo">Restaurar respaldo</button>
+                        <button type="button" class="btn btn-secondary btn-compact admin-only" id="btn-reset-demo">Restablecer demo</button>
+                        <input type="file" id="backup-file" accept="application/json" class="oculto">
+                    </div>
+                </div>
+
+                <div class="module-layout">
+                    <aside class="module-menu" aria-label="Módulos de gestión">
+                        <button class="module-button active" type="button" data-module="clientes"><span>👤</span><div><strong>Clientes</strong><small>Historial y cotizaciones</small></div></button>
+                        <button class="module-button" type="button" data-module="vendedores"><span>🧑‍💼</span><div><strong>Vendedores</strong><small>CRM, metas y comisiones</small></div></button>
+                        <button class="module-button" type="button" data-module="stock"><span>🚘</span><div><strong>Stock e Inventario</strong><small>VIN y disponibilidad</small></div></button>
+                        <button class="module-button" type="button" data-module="repuestos"><span>🔧</span><div><strong>Repuestos</strong><small>Piezas e insumos</small></div></button>
+                        <button class="module-button" type="button" data-module="finanzas"><span>💳</span><div><strong>Financiamiento</strong><small>Crédito y solicitudes</small></div></button>
+                        <button class="module-button" type="button" data-module="testdrive"><span>🛣️</span><div><strong>Test Drive</strong><small>Agenda y demostración</small></div></button>
+                        <button class="module-button" type="button" data-module="documentos"><span>📄</span><div><strong>Documentos</strong><small>Contratos y archivos</small></div></button>
+                        <button class="module-button" type="button" data-module="garantias"><span>🛡️</span><div><strong>Garantías</strong><small>Pólizas y reclamos</small></div></button>
+                        <button class="module-button" type="button" data-module="modelos"><span>🧾</span><div><strong>Modelos y Catálogo</strong><small>Versiones y precios</small></div></button>
+                        <button class="module-button" type="button" data-module="postventa"><span>🛠️</span><div><strong>Postventa</strong><small>OT y mantenciones</small></div></button>
+                    </aside>
+
+                    <div class="module-panel" id="module-panel" aria-live="polite"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financiamiento" class="section financing-section oculto" aria-hidden="true">
+            <div class="container">
+                <div class="financing-header">
+                    <div>
+                        <span class="eyebrow">Financiamiento</span>
+                        <h2>Simula tu crédito automotriz</h2>
+                        <p>El pie se calcula automáticamente como el 10% del valor del vehículo. Puedes sumar seguros opcionales si el cliente lo desea.</p>
+                    </div>
+                    <button type="button" class="close-financing" id="cerrar-simulador">Cerrar</button>
+                </div>
+
+                <div class="financing-layout">
+                    <form id="form-simulador" class="simulator-card" novalidate>
+                        <div class="step-block">
+                            <div class="step-number">1</div>
+                            <div class="step-body">
+                                <h3>Valor del vehículo</h3>
+                                <label for="valor-vehiculo">Precio total</label>
+                                <div class="money-input"><span>$</span><input type="number" id="valor-vehiculo" min="1000000" step="100000" placeholder="Ej. 15000000" required></div>
+                                <div class="inline-summary">
+                                    <div><span>Pie obligatorio (10%)</span><strong id="monto-pie">$0</strong></div>
+                                    <div><span>Monto a financiar (90%)</span><strong id="monto-financiar-preview">$0</strong></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-block">
+                            <div class="step-number">2</div>
+                            <div class="step-body">
+                                <h3>Plazo del crédito</h3>
+                                <label for="plazo-cuotas">Cantidad de cuotas</label>
+                                <select id="plazo-cuotas"></select>
+                                <p class="help-text">Puedes elegir desde 6 hasta 72 cuotas.</p>
+                                <div class="finance-inline-fields">
+                                    <div class="fixed-finance-field">
+                                        <span>Tasa mensual referencial</span>
+                                        <strong>2,79%</strong>
+                                        <small>Valor fijo definido por AutoMaster</small>
+                                    </div>
+                                    <div class="fixed-finance-field">
+                                        <span>Valor Futuro Garantizado (VFG)</span>
+                                        <strong>20%</strong>
+                                        <small>Valor fijo definido por AutoMaster</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-block">
+                            <div class="step-number">3</div>
+                            <div class="step-body">
+                                <h3>Seguros asociados</h3>
+                                <label class="insurance-option" for="seguro-desgravamen">
+                                    <input type="checkbox" id="seguro-desgravamen">
+                                    <span><strong>Seguro de desgravamen</strong><small>Agrega 2,0% del monto financiado</small></span>
+                                </label>
+                                <label class="insurance-option" for="seguro-cesantia">
+                                    <input type="checkbox" id="seguro-cesantia">
+                                    <span><strong>Seguro de cesantía</strong><small>Agrega 2,0% del monto financiado</small></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <p id="error-simulador" class="error-message oculto"></p>
+                        <button type="submit" class="btn btn-primary btn-full">Simular crédito</button>
+                    </form>
+
+                    <aside class="result-panel">
+                        <div class="result-placeholder" id="resultado-placeholder">
+                            <div class="placeholder-icon">📊</div>
+                            <h3>Tu resultado aparecerá aquí</h3>
+                            <p>Completa los datos y presiona “Simular crédito”.</p>
+                        </div>
+
+                        <div id="tarjeta-resultado" class="result-card oculto" aria-live="polite">
+                            <span class="result-badge">Resultado</span>
+                            <h3 id="res-titulo-cuotas">Simulación</h3>
+                            <div class="result-row emphasis"><span>Valor del vehículo</span><strong id="res-valor-vehiculo">$0</strong></div>
+                            <div class="result-row"><span>Pie (10%)</span><strong id="res-pie">$0</strong></div>
+                            <div class="result-row emphasis"><span>Monto financiado</span><strong id="res-monto-solicitado">$0</strong></div>
+                            <hr>
+                            <div class="result-row"><span>Tasa mensual referencial</span><strong id="res-tasa-mensual">2,79%</strong></div>
+                            <div class="result-row"><span>Valor futuro garantizado</span><strong id="res-vfg">$0</strong></div>
+                            <div class="result-row"><span>Costo base con intereses</span><strong id="res-costo-base">$0</strong></div>
+                            <div class="result-row"><span>Seguro desgravamen</span><strong id="res-costo-desgravamen">$0</strong></div>
+                            <div class="result-row"><span>Seguro cesantía</span><strong id="res-costo-cesantia">$0</strong></div>
+                            <hr>
+                            <div class="result-row total-row"><span>Cuota mensual aproximada</span><strong id="res-cuota-mensual">$0</strong></div>
+                            <div class="result-row total-row secondary-total"><span>Costo total del crédito</span><strong id="res-costo-total">$0</strong></div>
+                            <p class="legal-note">Simulación referencial para fines demostrativos. No reemplaza una evaluación bancaria real.</p>
+                            <a href="#contacto" class="btn btn-secondary btn-full">Solicitar asesoría</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="section section-alt">
+            <div class="container">
+                <div class="contact-layout">
+                    <div class="contact-copy">
+                        <span class="eyebrow">Contacto</span>
+                        <h2>Atención comercial y agendamiento</h2>
+                        <p>Déjanos tus datos para cotizar, pedir financiamiento, agendar un test drive o solicitar ayuda de postventa.</p>
+                        <div class="contact-cards">
+                            <div><strong>Ventas</strong><span>Cotizaciones y modelos</span></div>
+                            <div><strong>Financiamiento</strong><span>Evaluación y simulación</span></div>
+                            <div><strong>Postventa</strong><span>Servicio y garantías</span></div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Correo Electrónico:</label>
-                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" autocomplete="email">
-                        <span class="error-msg oculto" id="error-email"></span>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary">Validar y Enviar</button>
-                </form>
-                
-                <p id="mensaje-exito" class="oculto" style="color: green; font-weight: bold; margin-top: 15px;">
-                    ¡Validación exitosa! Los datos cumplen con el formato.
-                </p>
+                    <form id="formulario-cliente" class="contact-form" novalidate>
+                        <div class="form-group"><label for="nombre">Nombre completo</label><input type="text" id="nombre" name="nombre" placeholder="Ej. Juan Pérez"><span class="field-error oculto" id="error-nombre"></span></div>
+                        <div class="form-group"><label for="email">Correo electrónico</label><input type="email" id="email" name="email" placeholder="ejemplo@correo.com"><span class="field-error oculto" id="error-email"></span></div>
+                        <div class="form-group"><label for="telefono">Teléfono de contacto</label><input type="tel" id="telefono" name="telefono" placeholder="Ej. +56 9 1234 5678"></div>
+                        <div class="form-group"><label for="tipo-solicitud">Motivo de solicitud</label><select id="tipo-solicitud" name="tipo-solicitud"><option value="cotizacion">Cotización de vehículo / financiamiento</option><option value="test-drive">Agendamiento de test drive</option><option value="postventa">Consulta de servicio técnico / postventa</option><option value="garantia">Consulta de garantía</option></select></div>
+                        <button type="submit" class="btn btn-primary btn-full">Validar y enviar solicitud</button>
+                        <p id="mensaje-exito" class="success-message oculto">¡Solicitud registrada con éxito! Un asesor comercial se comunicará contigo.</p>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 AutoPremium Concesionario. Todos los derechos reservados.</p>
+    <div class="login-modal oculto" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
+        <div class="login-backdrop" data-close-login></div>
+        <div class="login-card">
+            <button type="button" class="login-close" id="cerrar-login" aria-label="Cerrar acceso">×</button>
+            <div class="login-logo"><span class="logo-mark">A</span><span>AutoMaster</span></div>
+            <span class="eyebrow">Área privada</span>
+            <h2 id="login-title">Acceso para funcionarios</h2>
+            <p class="login-description">Ingresa con tu correo corporativo <strong>@automaster.cl</strong>. El sistema aplica permisos por rol para mostrar solo los módulos autorizados.</p>
+            <div class="demo-login-hint"><strong>Demo:</strong> admin@automaster.cl / vendedor@automaster.cl / finanzas@automaster.cl / repuestos@automaster.cl / postventa@automaster.cl<br>Contraseña de demostración: <code>AutoMaster2026!</code></div>
+
+            <form id="form-login" novalidate>
+                <div class="form-group">
+                    <label for="login-email">Correo corporativo</label>
+                    <input type="email" id="login-email" autocomplete="username" placeholder="nombre@automaster.cl" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" autocomplete="current-password" placeholder="Ingresa tu contraseña" required>
+                </div>
+                <p class="login-error oculto" id="login-error" role="alert"></p>
+                <button type="submit" class="btn btn-primary btn-full">Ingresar al sistema</button>
+            </form>
+
+            <p class="login-help">Acceso exclusivo para personal autorizado de AutoMaster.</p>
+        </div>
+    </div>
+
+
+    <div class="app-modal oculto" id="app-modal" role="dialog" aria-modal="true" aria-labelledby="app-modal-title">
+        <div class="app-modal-backdrop" data-close-app-modal></div>
+        <div class="app-modal-card">
+            <button type="button" class="app-modal-close" id="app-modal-close" aria-label="Cerrar">×</button>
+            <div class="app-modal-header">
+                <span class="eyebrow" id="app-modal-eyebrow">AutoMaster</span>
+                <h2 id="app-modal-title">Acción</h2>
+                <p id="app-modal-description"></p>
+            </div>
+            <div id="app-modal-content"></div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <strong>AutoMaster</strong>
+            <p>&copy; 2026 AutoMaster Concesionaria SpA. Plataforma demostrativa de gestión automotriz.</p>
+        </div>
     </footer>
 
-    <!-- Conexión al JS externo -->
     <script src="app.js"></script>
 </body>
 </html>
