@@ -221,7 +221,13 @@ document.addEventListener('DOMContentLoaded', () => {
             model.specs = {...detail.specs, ...(model.specs || {})};
         }
     });
-    db.finance.forEach(item => { item.monthlyRate = 2.79; item.vfg = 20; });
+    db.finance.forEach(item => {
+        item.monthlyRate = 2.79;
+        item.vfg = 20;
+        item.attachments = item.attachments || [];
+        item.origin = item.origin || 'Solicitud interna';
+        item.risk = item.risk || 'Pendiente';
+    });
     localStorage.setItem(DATA_KEY, JSON.stringify(db));
     const saveDB = () => {
         localStorage.setItem(DATA_KEY, JSON.stringify(db));
@@ -459,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <li><strong>Precio:</strong> ${money(m.price)}</li>
                     </ul>
                     <div class="vehicle-actions">
-                        <button type="button" class="btn btn-primary js-simular-modelo" data-valor="${m.price}">Simular financiamiento</button>
+                        <button type="button" class="btn btn-primary js-simular-modelo" data-valor="${m.price}" data-model="${esc(m.name)}">Simular financiamiento</button>
                         <button type="button" class="btn btn-secondary js-ficha-modelo" data-model="${esc(m.id)}">Ver ficha técnica</button>
                         ${pdfButton}
                         <a href="#contacto" class="btn btn-secondary js-test-public" data-model="${esc(m.name)}">Solicitar test drive</a>
@@ -468,6 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </article>`;
         }).join('');
         $$('.js-simular-modelo', catalogGrid).forEach(btn => btn.addEventListener('click', () => {
+            selectedFinanceModelName = btn.dataset.model || '';
             $('#valor-vehiculo').value = btn.dataset.valor;
             updateFinancePreview();
             openFinancing();
@@ -501,6 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const installmentsSelect = $('#plazo-cuotas');
     const PUBLIC_MONTHLY_RATE = 2.79;
     const PUBLIC_VFG_PERCENT = 20;
+    let selectedFinanceModelName = '';
     for (let i=6; i<=72; i+=6) {
         const opt = document.createElement('option'); opt.value=i; opt.textContent=`${i} cuotas`; if (i===48) opt.selected=true; installmentsSelect.appendChild(opt);
     }
@@ -512,8 +520,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const openFinancing = () => { financeSection.classList.remove('oculto'); financeSection.setAttribute('aria-hidden','false'); financeSection.scrollIntoView({behavior:'smooth',block:'start'}); };
     $$('.js-abrir-financiamiento').forEach(el => el.addEventListener('click', e => {e.preventDefault(); openFinancing();}));
     $('#cerrar-simulador')?.addEventListener('click', () => {financeSection.classList.add('oculto'); financeSection.setAttribute('aria-hidden','true');});
-    valueInput.addEventListener('input', updateFinancePreview);
-    $('.js-ejemplo')?.addEventListener('click', e => {valueInput.value=e.currentTarget.dataset.valor; installmentsSelect.value=e.currentTarget.dataset.cuotas; updateFinancePreview(); openFinancing();});
+    valueInput.addEventListener('input', () => {
+        updateFinancePreview();
+        const selectedModel = getModel(selectedFinanceModelName);
+        if (!selectedModel || Number(valueInput.value) !== Number(selectedModel.price)) selectedFinanceModelName = '';
+    });
+    $('.js-ejemplo')?.addEventListener('click', e => {
+        valueInput.value=e.currentTarget.dataset.valor;
+        installmentsSelect.value=e.currentTarget.dataset.cuotas;
+        selectedFinanceModelName = db.models.find(m => Number(m.price) === Number(e.currentTarget.dataset.valor))?.name || 'AutoMaster SUV X500';
+        updateFinancePreview();
+        openFinancing();
+    });
 
     const calcCredit = ({value, installments, monthlyRate, vfgPct, desgravamen=false, cesantia=false}) => {
         const pie = value * 0.10;
@@ -531,6 +549,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return {pie, principal, balloon, basePayment, baseTotal, insurance1, insurance2, total, monthlyPayment: total/n};
     };
 
+    const showSimulationCode = code => {
+        let target = $('#res-codigo-simulacion');
+        if (!target) {
+            const resultCard = $('#tarjeta-resultado');
+            const title = $('#res-titulo-cuotas');
+            if (resultCard && title) {
+                const row = document.createElement('div');
+                row.className = 'result-row';
+                row.innerHTML = '<span>Código de simulación</span><strong id="res-codigo-simulacion"></strong>';
+                title.insertAdjacentElement('afterend', row);
+                target = $('#res-codigo-simulacion');
+            }
+        }
+        if (target) target.textContent = code;
+    };
+
     $('#form-simulador').addEventListener('submit', event => {
         event.preventDefault();
         const value = Number(valueInput.value);
@@ -538,7 +572,37 @@ document.addEventListener('DOMContentLoaded', () => {
         error.classList.add('oculto');
         if (!value || value < 1000000) {error.textContent='Ingresa un valor de vehículo válido desde $1.000.000.'; error.classList.remove('oculto'); return;}
         const installments=Number(installmentsSelect.value), monthlyRate=PUBLIC_MONTHLY_RATE, vfgPct=PUBLIC_VFG_PERCENT;
-        const result = calcCredit({value, installments, monthlyRate, vfgPct, desgravamen:$('#seguro-desgravamen').checked, cesantia:$('#seguro-cesantia').checked});
+        const hasDesgravamen = $('#seguro-desgravamen').checked;
+        const hasCesantia = $('#seguro-cesantia').checked;
+        const result = calcCredit({value, installments, monthlyRate, vfgPct, desgravamen:hasDesgravamen, cesantia:hasCesantia});
+
+        const matchedModel = getModel(selectedFinanceModelName) || db.models.find(m => Number(m.price) === value);
+        const simulation = {
+            id: uid('SIM'),
+            clientId: null,
+            origin: 'Simulación web',
+            model: matchedModel?.name || 'Valor ingresado manualmente',
+            vehicleValue: value,
+            amount: result.principal,
+            installments,
+            monthlyRate,
+            vfg: vfgPct,
+            vfgValue: result.balloon,
+            desgravamen: hasDesgravamen,
+            cesantia: hasCesantia,
+            insuranceDesgravamen: result.insurance1,
+            insuranceCesantia: result.insurance2,
+            monthlyPayment: result.monthlyPayment,
+            total: result.total,
+            risk: 'Pendiente',
+            status: 'Simulación web',
+            createdAt: new Date().toISOString(),
+            attachments: []
+        };
+        db.finance.unshift(simulation);
+        saveDB();
+
+        showSimulationCode(simulation.id);
         $('#res-titulo-cuotas').textContent=`Simulación en ${installments} cuotas`;
         $('#res-valor-vehiculo').textContent=money(value);
         $('#res-pie').textContent=money(result.pie);
@@ -594,10 +658,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 rows:db.parts.map(x=>[x.code,x.name,x.compatibility,status(`${x.stock} u.`,x.stock<=x.minStock?'bad':'ok'),`${x.minStock} u.`]),
                 actions:['Registrar repuesto','Crear pedido a fábrica','Consultar compatibilidad','Ajustar inventario']};
             case 'finanzas': return {
-                kpis:[['Solicitudes',db.finance.length],['Preaprobadas',db.finance.filter(x=>x.status==='Preaprobada').length],['En evaluación',db.finance.filter(x=>x.status==='Evaluación').length],['Riesgo alto',db.finance.filter(x=>x.risk==='Alto').length]],
-                columns:['Solicitud','Cliente','Monto','Cuotas / VFG','Riesgo','Estado'],
-                rows:db.finance.map(x=>[x.id,clientName(x.clientId),money(x.amount),`${x.installments} / ${x.vfg}%`,status(x.risk,x.risk==='Alto'?'bad':x.risk==='Medio'?'warn':'ok'),status(x.status,x.status==='Evaluación'?'warn':'ok')]),
-                actions:['Abrir simulador de crédito','Crear solicitud bancaria','Adjuntar antecedentes','Actualizar estado']};
+                kpis:[['Registros',db.finance.length],['Simulaciones web',db.finance.filter(x=>x.origin==='Simulación web' && !x.clientId).length],['Preaprobadas',db.finance.filter(x=>x.status==='Preaprobada').length],['En evaluación',db.finance.filter(x=>x.status==='Evaluación').length]],
+                columns:['Solicitud','Cliente','Vehículo / Origen','Monto','Cuotas / VFG','Riesgo','Estado'],
+                rows:db.finance.map(x=>[
+                    x.id,
+                    x.clientId ? clientName(x.clientId) : 'Cliente web',
+                    x.model ? `${x.model} · ${x.origin || 'Solicitud interna'}` : (x.origin || 'Solicitud interna'),
+                    money(x.amount),
+                    `${x.installments} / ${x.vfg}%`,
+                    status(x.risk || 'Pendiente',x.risk==='Alto'?'bad':x.risk==='Medio' || x.risk==='Pendiente'?'warn':'ok'),
+                    status(x.status,x.status==='Evaluación' || x.status==='Simulación web'?'warn':x.status==='Rechazada'?'bad':'ok')
+                ]),
+                actions:['Abrir simulador de crédito','Vincular simulación web','Crear solicitud bancaria','Adjuntar antecedentes','Actualizar estado']};
             case 'testdrive': return {
                 kpis:[['Agendados',db.testdrives.length],['Confirmados',db.testdrives.filter(x=>x.status==='Confirmado').length],['Vehículos demo',db.stock.filter(x=>x.demo).length]],
                 columns:['Cliente','Fecha','Vehículo','VIN demo','Estado'],
@@ -707,9 +779,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function financeAction(action) {
-        if(action==='Crear solicitud bancaria') openFormModal({title:action,eyebrow:'Financiamiento',description:'Tasa mensual fija: 2,79% · VFG fijo: 20%. La evaluación de riesgo es demostrativa y usa relación cuota/ingreso.',fields:[{name:'clientId',label:'Cliente',type:'select',options:clientOptions(),required:true},{name:'vehicleValue',label:'Valor del vehículo',type:'number',min:1000000,required:true},{name:'installments',label:'Cuotas',type:'select',options:[12,24,36,48,60,72].map(String),value:'48'},{name:'income',label:'Ingreso mensual cliente',type:'number',min:1,required:true},{name:'debts',label:'Otros compromisos mensuales',type:'number',min:0,value:'0',required:true}],onSubmit:d=>{const value=Number(d.vehicleValue), result=calcCredit({value,installments:Number(d.installments),monthlyRate:2.79,vfgPct:20});const ratio=(result.monthlyPayment+Number(d.debts))/Number(d.income);const risk=ratio<=0.30?'Bajo':ratio<=0.45?'Medio':'Alto';db.finance.push({id:uid('FIN'),clientId:d.clientId,amount:result.principal,installments:Number(d.installments),monthlyRate:2.79,vfg:20,risk,status:risk==='Alto'?'Evaluación':'Preaprobada',attachments:[]});saveDB();toast(`Solicitud creada. Riesgo: ${risk}.`);}});
-        else if(action==='Adjuntar antecedentes') openFormModal({title:action,eyebrow:'Financiamiento',fields:[{name:'financeId',label:'Solicitud',type:'select',options:db.finance.map(x=>({value:x.id,label:`${x.id} · ${clientName(x.clientId)}`})),required:true},{name:'file',label:'Archivo de antecedente',type:'file',required:true}],onSubmit:(d,fd,form)=>{const f=form.querySelector('[name=file]').files[0];if(!f)throw new Error('Selecciona un archivo.');const fin=db.finance.find(x=>x.id===d.financeId);fin.attachments=fin.attachments||[];fin.attachments.push({name:f.name,date:todayISO()});saveDB();toast('Antecedente adjuntado al expediente.');}});
-        else openFormModal({title:'Actualizar estado',eyebrow:'Financiamiento',fields:[{name:'financeId',label:'Solicitud',type:'select',options:db.finance.map(x=>({value:x.id,label:`${x.id} · ${clientName(x.clientId)}`})),required:true},{name:'status',label:'Estado',type:'select',options:['Evaluación','Preaprobada','Aprobada','Rechazada','Enviada'],required:true}],onSubmit:d=>{db.finance.find(x=>x.id===d.financeId).status=d.status;saveDB();toast('Estado de solicitud actualizado.');}});
+        if(action==='Vincular simulación web') {
+            const webSimulations = db.finance.filter(x => x.origin === 'Simulación web' && !x.clientId);
+            if (!webSimulations.length) {
+                toast('No hay simulaciones web pendientes de vincular.','bad');
+                return;
+            }
+            openFormModal({
+                title:action,
+                eyebrow:'Financiamiento',
+                description:'Asocia una simulación realizada en la página pública con un cliente registrado para continuar su evaluación.',
+                fields:[
+                    {name:'financeId',label:'Simulación web',type:'select',options:webSimulations.map(x=>({value:x.id,label:`${x.id} · ${x.model || 'Vehículo'} · ${money(x.amount)} · ${x.installments} cuotas`})),required:true},
+                    {name:'clientId',label:'Cliente',type:'select',options:clientOptions(),required:true}
+                ],
+                submitLabel:'Vincular simulación',
+                onSubmit:d=>{
+                    const fin=db.finance.find(x=>x.id===d.financeId);
+                    if(!fin) throw new Error('No se encontró la simulación seleccionada.');
+                    fin.clientId=d.clientId;
+                    fin.status='Evaluación';
+                    fin.risk='Pendiente';
+                    fin.linkedAt=new Date().toISOString();
+                    saveDB();
+                    toast(`Simulación ${fin.id} vinculada a ${clientName(d.clientId)}.`);
+                }
+            });
+        }
+        else if(action==='Crear solicitud bancaria') openFormModal({title:action,eyebrow:'Financiamiento',description:'Tasa mensual fija: 2,79% · VFG fijo: 20%. La evaluación de riesgo es demostrativa y usa relación cuota/ingreso.',fields:[{name:'clientId',label:'Cliente',type:'select',options:clientOptions(),required:true},{name:'vehicleValue',label:'Valor del vehículo',type:'number',min:1000000,required:true},{name:'installments',label:'Cuotas',type:'select',options:[12,24,36,48,60,72].map(String),value:'48'},{name:'income',label:'Ingreso mensual cliente',type:'number',min:1,required:true},{name:'debts',label:'Otros compromisos mensuales',type:'number',min:0,value:'0',required:true}],onSubmit:d=>{const value=Number(d.vehicleValue), result=calcCredit({value,installments:Number(d.installments),monthlyRate:2.79,vfgPct:20});const ratio=(result.monthlyPayment+Number(d.debts))/Number(d.income);const risk=ratio<=0.30?'Bajo':ratio<=0.45?'Medio':'Alto';db.finance.push({id:uid('FIN'),clientId:d.clientId,origin:'Solicitud interna',model:db.models.find(m=>Number(m.price)===value)?.name||'Valor ingresado manualmente',vehicleValue:value,amount:result.principal,installments:Number(d.installments),monthlyRate:2.79,vfg:20,risk,status:risk==='Alto'?'Evaluación':'Preaprobada',attachments:[]});saveDB();toast(`Solicitud creada. Riesgo: ${risk}.`);}});
+        else if(action==='Adjuntar antecedentes') openFormModal({title:action,eyebrow:'Financiamiento',fields:[{name:'financeId',label:'Solicitud',type:'select',options:db.finance.map(x=>({value:x.id,label:`${x.id} · ${x.clientId ? clientName(x.clientId) : 'Cliente web'}`})),required:true},{name:'file',label:'Archivo de antecedente',type:'file',required:true}],onSubmit:(d,fd,form)=>{const f=form.querySelector('[name=file]').files[0];if(!f)throw new Error('Selecciona un archivo.');const fin=db.finance.find(x=>x.id===d.financeId);fin.attachments=fin.attachments||[];fin.attachments.push({name:f.name,date:todayISO()});saveDB();toast('Antecedente adjuntado al expediente.');}});
+        else openFormModal({title:'Actualizar estado',eyebrow:'Financiamiento',fields:[{name:'financeId',label:'Solicitud',type:'select',options:db.finance.map(x=>({value:x.id,label:`${x.id} · ${x.clientId ? clientName(x.clientId) : 'Cliente web'}`})),required:true},{name:'status',label:'Estado',type:'select',options:['Simulación web','Evaluación','Preaprobada','Aprobada','Rechazada','Enviada'],required:true}],onSubmit:d=>{db.finance.find(x=>x.id===d.financeId).status=d.status;saveDB();toast('Estado de solicitud actualizado.');}});
     }
 
     function testDriveAction(action) {
@@ -804,4 +903,3 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPublicCatalog();
     updateNotificationCount();
     updateFinancePreview();
-});
