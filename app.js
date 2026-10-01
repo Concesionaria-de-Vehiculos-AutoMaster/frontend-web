@@ -903,3 +903,4 @@ document.addEventListener('DOMContentLoaded', () => {
     renderPublicCatalog();
     updateNotificationCount();
     updateFinancePreview();
+});
