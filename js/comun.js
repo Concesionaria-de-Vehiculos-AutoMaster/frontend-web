@@ -1,36 +1,5 @@
 'use strict';
 
-/*
- * ================================================================
- * FUNCIONES Y DATOS COMPARTIDOS
- * ================================================================
- * Funciones básicas, almacenamiento, datos iniciales, navegación,
- * modales y mensajes utilizados por varias páginas.
- *
- * Archivo separado para mantener AutoMaster más ordenado y fácil
- * de estudiar.
- */
-
-/*
-     * VERSIÓN CON FUNCIONES MÁS SIMPLES
-     * ----------------------------------
-     * La lógica es la misma que en el archivo original, pero las funciones
-     * principales usan nombres más descriptivos y una sintaxis clásica:
-     *
-     * function nombreFuncion(parametro) {
-     *     // instrucciones
-     *     return resultado;
-     * }
-     *
-     * Esto se parece más a la forma de trabajar que normalmente se enseña
-     * al comenzar con Java, aunque este archivo sigue siendo JavaScript.
-     */
-
-
-    // ================================================================
-    // FUNCIONES BÁSICAS DE APOYO
-    // ================================================================
-
     function obtenerElemento(selector, raiz) {
         if (raiz == null) {
             raiz = document;
@@ -123,7 +92,7 @@
         try {
             window[nombreStorage].removeItem(clave);
         } catch (error) {
-            // El programa puede seguir funcionando aunque el navegador bloquee el storage.
+            // El programa sigue funcionando aunque el navegador bloquee el storage.
         }
     }
 
@@ -230,9 +199,6 @@
     };
 
 
-    // ================================================================
-    // MIGRACIÓN DE NOMBRES DEL CATÁLOGO
-    // ================================================================
     const NOMBRES_MODELOS_ANTIGUOS = {
         'AutoMaster SUV X500':'BMW X3 xDrive20i',
         'AutoMaster Sedan Exec':'Toyota Corolla Hybrid',
@@ -495,7 +461,7 @@
         db = normalizarDatos(db);
         guardarStorage('localStorage', DATA_KEY, JSON.stringify(db));
 
-        // Después de guardar, actualizamos lo que ve el usuario.
+        // actualizacion de lo que ve el usuario.
         actualizarResumen();
         mostrarCatalogoPublico();
         actualizarContadorNotificaciones();
@@ -545,9 +511,7 @@
         return 'Sin vendedor';
     }
 
-    // ------------------------------------------------------------------
     // Navegación móvil
-    // ------------------------------------------------------------------
     const menuToggle = obtenerElemento('#menu-toggle');
     const mainNav = obtenerElemento('#main-nav');
     if (menuToggle && mainNav) {
@@ -563,9 +527,7 @@
         });
     }
 
-    // ------------------------------------------------------------------
     // Modales y mensajes
-    // ------------------------------------------------------------------
     const appModal = obtenerElemento('#app-modal');
     const appModalTitle = obtenerElemento('#app-modal-title');
     const appModalDescription = obtenerElemento('#app-modal-description');
