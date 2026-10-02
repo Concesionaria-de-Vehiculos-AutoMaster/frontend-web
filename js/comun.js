@@ -128,16 +128,16 @@
     }
 
     const MODEL_IMAGES = {
-        x500: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=900&q=80',
-        sedan: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80',
-        city: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=900&q=80',
-        pickup: 'https://images.unsplash.com/photo-1551830820-330a71b99659?auto=format&fit=crop&w=900&q=80',
-        cross: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=900&q=80',
-        sport: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=900&q=80',
-        moto1: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=80',
-        moto2: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Honda_CB500X.jpg',
-        moto3: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=900&q=80',
-        moto4: 'https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=900&q=80'
+        x500: 'https://commons.wikimedia.org/wiki/Special:FilePath/BMW_X3_%28G01%29_Washington_DC_Metro_Area%2C_USA.jpg?width=1200',
+        sedan: 'https://commons.wikimedia.org/wiki/Special:FilePath/TOYOTA_COROLLA_SEDAN_HYBRID_%28E210%29_China_%286%29.jpg?width=1200',
+        city: 'https://commons.wikimedia.org/wiki/Special:FilePath/Kia_Rio_%28front%29.jpg?width=1200',
+        pickup: 'https://commons.wikimedia.org/wiki/Special:FilePath/Mitsubishi_L200_%2850017014592%29.jpg?width=1200',
+        cross: 'https://commons.wikimedia.org/wiki/Special:FilePath/Toyota_Corolla_Cross_Hybrid_%28XG10%29.jpg?width=1200',
+        sport: 'https://commons.wikimedia.org/wiki/Special:FilePath/Hyundai_i30_N_1.jpg?width=1200',
+        moto1: 'https://commons.wikimedia.org/wiki/Special:FilePath/Suzuki_Gixxer_SF_250_FFV.jpg?width=1200',
+        moto2: 'https://commons.wikimedia.org/wiki/Special:FilePath/2021_Honda_CB500X.jpg?width=1200',
+        moto3: 'https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha_YZF_R6.jpg?width=1200',
+        moto4: 'https://commons.wikimedia.org/wiki/Special:FilePath/2007_Boulevard_m50.jpg?width=1200'
     };
 
     const MODEL_DETAILS = {
