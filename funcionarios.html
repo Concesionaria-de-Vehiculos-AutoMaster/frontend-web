@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionarios | AutoMaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="AutoMaster inicio">
+            <span class="logo-mark">A</span>
+            <span>AutoMaster</span>
+        </a>
+
+        <button class="menu-toggle" id="menu-toggle" type="button"
+                aria-label="Abrir menú" aria-expanded="false">☰</button>
+
+        <nav aria-label="Navegación principal" class="main-nav" id="main-nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+<li><a href="catalogo.html">Catálogo</a></li>
+<li><a href="funcionarios.html" class="active-page" aria-current="page">Funcionarios</a></li>
+<li><a href="financiamiento.html">Financiamiento</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+<li id="nav-usuario" class="nav-user oculto">
+    <span id="usuario-funcionario"></span>
+    <button type="button" id="btn-logout-funcionario">Cerrar sesión</button>
+</li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<main>
+
+<section class="section section-alt funcionario-intro">
+    <div class="container">
+        <div class="section-heading">
+            <span class="eyebrow">Área privada</span>
+            <h1>Acceso de funcionarios AutoMaster</h1>
+            <p>Ingresa con una cuenta corporativa para acceder a los módulos autorizados según tu rol.</p>
+            <div class="hero-actions funcionario-login-actions">
+                <button type="button" class="btn btn-primary" id="hero-login-funcionario">Iniciar sesión</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section aria-hidden="true" class="section management-section oculto" id="gestion">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">Centro de gestión</span>
+<h2>Todos los módulos de AutoMaster</h2>
+<p>Selecciona un módulo para ver sus funciones, indicadores y acciones principales.</p>
+</div>
+<div class="management-toolbar">
+<div class="session-summary">
+<span>Rol activo</span>
+<strong id="role-label">Sin sesión</strong>
+</div>
+<div class="management-actions">
+<button class="btn btn-secondary btn-compact" id="btn-notificaciones" type="button">Notificaciones <span id="notification-count">0</span></button>
+<button class="btn btn-secondary btn-compact admin-only" id="btn-exportar-respaldo" type="button">Exportar respaldo</button>
+<button class="btn btn-secondary btn-compact admin-only" id="btn-importar-respaldo" type="button">Restaurar respaldo</button>
+<button class="btn btn-secondary btn-compact admin-only" id="btn-reset-demo" type="button">Restablecer demo</button>
+<input accept="application/json" class="oculto" id="backup-file" type="file"/>
+</div>
+</div>
+<div class="module-layout">
+<aside aria-label="Módulos de gestión" class="module-menu">
+<button class="module-button active" data-module="clientes" type="button"><span>👤</span><div><strong>Clientes</strong><small>Historial y cotizaciones</small></div></button>
+<button class="module-button" data-module="vendedores" type="button"><span>🧑‍💼</span><div><strong>Vendedores</strong><small>CRM, metas y comisiones</small></div></button>
+<button class="module-button" data-module="stock" type="button"><span>🚘</span><div><strong>Stock e Inventario</strong><small>VIN y disponibilidad</small></div></button>
+<button class="module-button" data-module="repuestos" type="button"><span>🔧</span><div><strong>Repuestos</strong><small>Piezas e insumos</small></div></button>
+<button class="module-button" data-module="finanzas" type="button"><span>💳</span><div><strong>Financiamiento</strong><small>Crédito y solicitudes</small></div></button>
+<button class="module-button" data-module="testdrive" type="button"><span>🛣️</span><div><strong>Test Drive</strong><small>Agenda y demostración</small></div></button>
+<button class="module-button" data-module="documentos" type="button"><span>📄</span><div><strong>Documentos</strong><small>Contratos y archivos</small></div></button>
+<button class="module-button" data-module="garantias" type="button"><span>🛡️</span><div><strong>Garantías</strong><small>Pólizas y reclamos</small></div></button>
+<button class="module-button" data-module="modelos" type="button"><span>🧾</span><div><strong>Modelos y Catálogo</strong><small>Versiones y precios</small></div></button>
+<button class="module-button" data-module="postventa" type="button"><span>🛠️</span><div><strong>Postventa</strong><small>OT y mantenciones</small></div></button>
+</aside>
+<div aria-live="polite" class="module-panel" id="module-panel"></div>
+</div>
+</div>
+</section>
+</main>
+
+<div aria-labelledby="login-title" aria-modal="true" class="login-modal oculto" id="login-modal" role="dialog">
+<div class="login-backdrop" data-close-login=""></div>
+<div class="login-card">
+<button aria-label="Cerrar acceso" class="login-close" id="cerrar-login" type="button">×</button>
+<div class="login-logo"><span class="logo-mark">A</span><span>AutoMaster</span></div>
+<span class="eyebrow">Área privada</span>
+<h2 id="login-title">Acceso para funcionarios</h2>
+<p class="login-description">Ingresa con tu correo corporativo <strong>@automaster.cl</strong>. El sistema aplica permisos por rol para mostrar solo los módulos autorizados.</p>
+<div class="demo-login-hint"><strong>Demo:</strong> admin@automaster.cl / vendedor@automaster.cl / finanzas@automaster.cl / repuestos@automaster.cl / postventa@automaster.cl<br/>Contraseña de demostración: <code>AutoMaster2026!</code></div>
+<form id="form-login" novalidate="">
+<div class="form-group">
+<label for="login-email">Correo corporativo</label>
+<input autocomplete="username" id="login-email" placeholder="nombre@automaster.cl" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="login-password">Contraseña</label>
+<input autocomplete="current-password" id="login-password" placeholder="Ingresa tu contraseña" required="" type="password"/>
+</div>
+<p class="login-error oculto" id="login-error" role="alert"></p>
+<button class="btn btn-primary btn-full" type="submit">Ingresar al sistema</button>
+</form>
+<p class="login-help">Acceso exclusivo para personal autorizado de AutoMaster.</p>
+</div>
+</div>
+<div aria-labelledby="app-modal-title" aria-modal="true" class="app-modal oculto" id="app-modal" role="dialog">
+<div class="app-modal-backdrop" data-close-app-modal=""></div>
+<div class="app-modal-card">
+<button aria-label="Cerrar" class="app-modal-close" id="app-modal-close" type="button">×</button>
+<div class="app-modal-header">
+<span class="eyebrow" id="app-modal-eyebrow">AutoMaster</span>
+<h2 id="app-modal-title">Acción</h2>
+<p id="app-modal-description"></p>
+</div>
+<div id="app-modal-content"></div>
+</div>
+</div>
+<div aria-atomic="true" aria-live="polite" class="toast-container" id="toast-container"></div>
+<footer class="site-footer">
+<div class="container footer-inner">
+<strong>AutoMaster</strong>
+<p>© 2026 AutoMaster Concesionaria SpA. Plataforma demostrativa de gestión automotriz.</p>
+</div>
+</footer>
+
+<!-- JavaScript separado por funcionalidad -->
+<script src="js/comun.js"></script>
+<script src="js/funcionarios.js"></script>
+<script src="js/catalogo.js"></script>
+<script src="js/financiamiento.js"></script>
+<script src="js/contacto.js"></script>
+<script src="js/inicio.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | AutoMaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="AutoMaster inicio">
+            <span class="logo-mark">A</span>
+            <span>AutoMaster</span>
+        </a>
+
+        <button class="menu-toggle" id="menu-toggle" type="button"
+                aria-label="Abrir menú" aria-expanded="false">☰</button>
+
+        <nav aria-label="Navegación principal" class="main-nav" id="main-nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+<li><a href="catalogo.html">Catálogo</a></li>
+<li><a href="funcionarios.html">Funcionarios</a></li>
+<li><a href="financiamiento.html">Financiamiento</a></li>
+<li><a href="contacto.html" class="active-page" aria-current="page">Contacto</a></li>
+<li id="nav-usuario" class="nav-user oculto">
+    <span id="usuario-funcionario"></span>
+    <button type="button" id="btn-logout-funcionario">Cerrar sesión</button>
+</li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<main>
+<section class="section section-alt" id="contacto">
+<div class="container">
+<div class="contact-layout">
+<div class="contact-copy">
+<span class="eyebrow">Contacto</span>
+<h2>Atención comercial y agendamiento</h2>
+<p>Déjanos tus datos para cotizar, pedir financiamiento, agendar un test drive o solicitar ayuda de postventa.</p>
+<div class="contact-cards">
+<div><strong>Ventas</strong><span>Cotizaciones y modelos</span></div>
+<div><strong>Financiamiento</strong><span>Evaluación y simulación</span></div>
+<div><strong>Postventa</strong><span>Servicio y garantías</span></div>
+</div>
+</div>
+<form class="contact-form" id="formulario-cliente" novalidate="">
+<div class="form-group"><label for="nombre">Nombre completo</label><input id="nombre" name="nombre" placeholder="Ej. Juan Pérez" type="text"/><span class="field-error oculto" id="error-nombre"></span></div>
+<div class="form-group"><label for="email">Correo electrónico</label><input id="email" name="email" placeholder="ejemplo@correo.com" type="email"/><span class="field-error oculto" id="error-email"></span></div>
+<div class="form-group"><label for="telefono">Teléfono de contacto</label><input id="telefono" name="telefono" placeholder="Ej. +56 9 1234 5678" type="tel"/></div>
+<div class="form-group"><label for="tipo-solicitud">Motivo de solicitud</label><select id="tipo-solicitud" name="tipo-solicitud"><option value="cotizacion">Cotización de vehículo / financiamiento</option><option value="test-drive">Agendamiento de test drive</option><option value="postventa">Consulta de servicio técnico / postventa</option><option value="garantia">Consulta de garantía</option></select></div>
+<button class="btn btn-primary btn-full" type="submit">Validar y enviar solicitud</button>
+<p class="success-message oculto" id="mensaje-exito">¡Solicitud registrada con éxito! Un asesor comercial se comunicará contigo.</p>
+</form>
+</div>
+</div>
+</section>
+</main>
+
+
+<div aria-labelledby="app-modal-title" aria-modal="true" class="app-modal oculto" id="app-modal" role="dialog">
+<div class="app-modal-backdrop" data-close-app-modal=""></div>
+<div class="app-modal-card">
+<button aria-label="Cerrar" class="app-modal-close" id="app-modal-close" type="button">×</button>
+<div class="app-modal-header">
+<span class="eyebrow" id="app-modal-eyebrow">AutoMaster</span>
+<h2 id="app-modal-title">Acción</h2>
+<p id="app-modal-description"></p>
+</div>
+<div id="app-modal-content"></div>
+</div>
+</div>
+<div aria-atomic="true" aria-live="polite" class="toast-container" id="toast-container"></div>
+<footer class="site-footer">
+<div class="container footer-inner">
+<strong>AutoMaster</strong>
+<p>© 2026 AutoMaster Concesionaria SpA. Plataforma demostrativa de gestión automotriz.</p>
+</div>
+</footer>
+
+<!-- JavaScript separado por funcionalidad -->
+<script src="js/comun.js"></script>
+<script src="js/funcionarios.js"></script>
+<script src="js/catalogo.js"></script>
+<script src="js/financiamiento.js"></script>
+<script src="js/contacto.js"></script>
+<script src="js/inicio.js"></script>
+</body>
+</html>

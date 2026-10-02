@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo | AutoMaster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo" aria-label="AutoMaster inicio">
+            <span class="logo-mark">A</span>
+            <span>AutoMaster</span>
+        </a>
+
+        <button class="menu-toggle" id="menu-toggle" type="button"
+                aria-label="Abrir menú" aria-expanded="false">☰</button>
+
+        <nav aria-label="Navegación principal" class="main-nav" id="main-nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+<li><a href="catalogo.html" class="active-page" aria-current="page">Catálogo</a></li>
+<li><a href="funcionarios.html">Funcionarios</a></li>
+<li><a href="financiamiento.html">Financiamiento</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+<li id="nav-usuario" class="nav-user oculto">
+    <span id="usuario-funcionario"></span>
+    <button type="button" id="btn-logout-funcionario">Cerrar sesión</button>
+</li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<main>
+<section class="section" id="catalogo">
+<div class="container">
+<div class="section-heading">
+<span class="eyebrow">Catálogo</span>
+<h2>Vehículos y motos disponibles</h2>
+<p>Explora nuestro catálogo, filtra por categoría y envía cualquier modelo directamente al simulador de financiamiento.</p>
+</div>
+<div aria-label="Filtros del catálogo" class="catalog-toolbar">
+<div aria-label="Filtrar por categoría" class="catalog-filters" role="group">
+<button class="catalog-filter active" data-filter="todos" type="button">Todos</button>
+<button class="catalog-filter" data-filter="auto" type="button">Autos</button>
+<button class="catalog-filter" data-filter="suv" type="button">SUV y camionetas</button>
+<button class="catalog-filter" data-filter="moto" type="button">Motos</button>
+</div>
+<label class="catalog-search">
+<span>Buscar modelo</span>
+<input autocomplete="off" id="catalog-search" placeholder="Ej. SUV, Sport, moto..." type="search"/>
+</label>
+</div>
+<p class="catalog-empty oculto" id="catalog-empty">No encontramos modelos con ese filtro.</p>
+<div class="catalog-grid" id="catalog-grid">
+<article class="vehicle-card" data-category="suv" data-name="BMW X3 xDrive20i">
+<img alt="SUV AutoMaster X500 gris" src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag">SUV</span><span>Stock: 1</span></div>
+<h3>BMW X3 xDrive20i</h3>
+<ul>
+<li><strong>Motor:</strong> 2.0 Turbo</li>
+<li><strong>Transmisión:</strong> Automática</li>
+<li><strong>Precio:</strong> $18.990.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="18990000" type="button">Simular este vehículo</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+<article class="vehicle-card" data-category="auto" data-name="Toyota Corolla Hybrid">
+<img alt="Sedán AutoMaster Exec" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag">Sedán</span><span>Stock: 1</span></div>
+<h3>Toyota Corolla Hybrid</h3>
+<ul>
+<li><strong>Motor:</strong> 1.6 Híbrido</li>
+<li><strong>Eficiencia:</strong> 22 km/L</li>
+<li><strong>Precio:</strong> $14.490.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="14490000" type="button">Simular este vehículo</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+<article class="vehicle-card" data-category="auto" data-name="Kia Rio 1.4">
+<img alt="Hatchback Kia Rio 1.4" src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag">Hatchback</span><span>Stock: 1</span></div>
+<h3>Kia Rio 1.4</h3>
+<ul>
+<li><strong>Motor:</strong> 1.4 Bencina</li>
+<li><strong>Transmisión:</strong> Mecánica</li>
+<li><strong>Precio:</strong> $11.990.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="11990000" type="button">Simular este vehículo</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+<article class="vehicle-card" data-category="suv" data-name="Mitsubishi L200 2.4 DI-D">
+<img alt="Camioneta Mitsubishi L200 2.4 DI-D" src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag">Camioneta</span><span>Stock: 0</span></div>
+<h3>Mitsubishi L200 2.4 DI-D</h3>
+<ul>
+<li><strong>Motor:</strong> 2.4 Turbo Diésel</li>
+<li><strong>Tracción:</strong> 4x4</li>
+<li><strong>Precio:</strong> $24.990.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="24990000" type="button">Simular este vehículo</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+<article class="vehicle-card" data-category="suv" data-name="Toyota Corolla Cross Hybrid">
+<img alt="Crossover Toyota Corolla Cross Hybrid" src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag">Crossover</span><span>Stock: 1</span></div>
+<h3>Toyota Corolla Cross Hybrid</h3>
+<ul>
+<li><strong>Motor:</strong> 1.8 Hybrid</li>
+<li><strong>Transmisión:</strong> Automática e-CVT</li>
+<li><strong>Precio:</strong> $20.490.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="20490000" type="button">Simular este vehículo</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+<article class="vehicle-card" data-category="auto" data-name="Hyundai i30 N">
+<img alt="Coupé deportivo Hyundai i30 N" src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag">Coupé</span><span>Stock: 0</span></div>
+<h3>Hyundai i30 N</h3>
+<ul>
+<li><strong>Motor:</strong> 2.0 Turbo</li>
+<li><strong>Transmisión:</strong> Automática deportiva</li>
+<li><strong>Precio:</strong> $29.990.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="29990000" type="button">Simular este vehículo</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+<article class="vehicle-card" data-category="moto" data-name="Suzuki Gixxer 250">
+<img alt="Moto urbana AutoMaster Street 250" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag moto-tag">Moto urbana</span><span>Stock: 1</span></div>
+<h3>Suzuki Gixxer 250</h3>
+<ul>
+<li><strong>Motor:</strong> 250 cc</li>
+<li><strong>Tipo:</strong> Urbana / Naked</li>
+<li><strong>Precio:</strong> $3.490.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="3490000" type="button">Simular esta moto</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+<article class="vehicle-card" data-category="moto" data-name="Honda CB500X">
+<img alt="Moto adventure AutoMaster 500" src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag moto-tag">Adventure</span><span>Stock: 1</span></div>
+<h3>Honda CB500X</h3>
+<ul>
+<li><strong>Motor:</strong> 500 cc</li>
+<li><strong>Tipo:</strong> Adventure / Touring</li>
+<li><strong>Precio:</strong> $5.990.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="5990000" type="button">Simular esta moto</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+<article class="vehicle-card" data-category="moto" data-name="Yamaha YZF-R6">
+<img alt="Moto deportiva AutoMaster Sport 600" src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag moto-tag">Deportiva</span><span>Stock: 0</span></div>
+<h3>Yamaha YZF-R6</h3>
+<ul>
+<li><strong>Motor:</strong> 600 cc</li>
+<li><strong>Tipo:</strong> Deportiva</li>
+<li><strong>Precio:</strong> $7.490.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="7490000" type="button">Simular esta moto</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+<article class="vehicle-card" data-category="moto" data-name="Suzuki Boulevard M50">
+<img alt="Moto cruiser AutoMaster 800" src="https://images.unsplash.com/photo-1525160354320-d8e92641c563?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<div class="vehicle-content">
+<div class="vehicle-topline"><span class="vehicle-tag moto-tag">Cruiser</span><span>Stock: 1</span></div>
+<h3>Suzuki Boulevard M50</h3>
+<ul>
+<li><strong>Motor:</strong> 800 cc</li>
+<li><strong>Tipo:</strong> Cruiser</li>
+<li><strong>Precio:</strong> $9.490.000</li>
+</ul>
+<div class="vehicle-actions">
+<button class="btn btn-primary js-simular-modelo" data-valor="9490000" type="button">Simular esta moto</button>
+<a class="btn btn-secondary" href="#contacto">Solicitar cotización</a>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+</main>
+
+
+<div aria-labelledby="app-modal-title" aria-modal="true" class="app-modal oculto" id="app-modal" role="dialog">
+<div class="app-modal-backdrop" data-close-app-modal=""></div>
+<div class="app-modal-card">
+<button aria-label="Cerrar" class="app-modal-close" id="app-modal-close" type="button">×</button>
+<div class="app-modal-header">
+<span class="eyebrow" id="app-modal-eyebrow">AutoMaster</span>
+<h2 id="app-modal-title">Acción</h2>
+<p id="app-modal-description"></p>
+</div>
+<div id="app-modal-content"></div>
+</div>
+</div>
+<div aria-atomic="true" aria-live="polite" class="toast-container" id="toast-container"></div>
+<footer class="site-footer">
+<div class="container footer-inner">
+<strong>AutoMaster</strong>
+<p>© 2026 AutoMaster Concesionaria SpA. Plataforma demostrativa de gestión automotriz.</p>
+</div>
+</footer>
+
+<!-- JavaScript separado por funcionalidad -->
+<script src="js/comun.js"></script>
+<script src="js/funcionarios.js"></script>
+<script src="js/catalogo.js"></script>
+<script src="js/financiamiento.js"></script>
+<script src="js/contacto.js"></script>
+<script src="js/inicio.js"></script>
+</body>
+</html>
